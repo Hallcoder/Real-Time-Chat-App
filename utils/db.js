@@ -1,5 +1,7 @@
 const mongoose= require('mongoose');
-const dbUrl = 'mongodb://localhost:27017/chat'
+const config= require('config');
+    
+    const dbUrl = 'mongodb+srv://zesta:%21%21%21%3F%21%3F123Abana@versusbet.bwxby.mongodb.net/test?authSource=admin&replicaSet=atlas-ob0mnz-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true'
 const options = {
     useUnifiedTopology:true,
 }

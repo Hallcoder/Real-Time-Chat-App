@@ -13,14 +13,17 @@ const userRouter = require('./controllers/users');
 const db = require("./utils/db");
 const rooms = require("./controllers/rooms");
 const { config } = require("./utils/config");
+const configP = require('config')
+const cors = require('cors')
 config()
 db()
+app.use(cors())
 app.use(express.json())
 app.use('/users',userRouter)
 app.use('/rooms',rooms)
 
 
-
+console.log(configP.get('db'))
 //Run when the client connects
 
 io.on("connection",(socket) => {
@@ -55,12 +58,13 @@ io.to(user.room).emit('userInfo',{
 
   socket.on("disconnect", async() => {
     const user = await userLeave(socket.id);
-    console.log(user);
+    console.log('User in serverjs',user);
+    console.log('user room',user.roomName);
     if(user){
         io.to(user.room).emit("message", formatMessage(botName, `${user.username} has left the chat`));
         io.to(user.room).emit('userInfo',{
             room:user.room,
-            users:getRoomUsers()
+            users: await getRoomUsers(user.roomName)
         })
         
     }

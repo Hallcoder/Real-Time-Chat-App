@@ -28,14 +28,15 @@ module.exports.userLeave = async (id) => {
   // delete user.socketId;
   // await user.save();
   const removed = room.users.splice(room.users.indexOf(userRemove),1);
+  console.log('removeone:',removed);
   await room.save();
-  return removed;
+  return removed[0];
 };
 
 module.exports.getRoomUsers = async(room) => {
-    const room1 = await  Room.findOne({roomName:room}).exec();
-    console.log('room1',room1);
-    return room1.users;
+    const room2 = await  Room.findOne({roomName:room}).exec();
+
+    return  room2.users;
 }
 
 //Get the current users

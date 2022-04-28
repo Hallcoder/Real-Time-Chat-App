@@ -5,7 +5,7 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
     const msg = username.value;
     const roomName = room.value;
-    fetch('http://localhost:5500/users/register',{
+    fetch('../server.js',{
         method:'POST',
         headers:{
             'Content-Type':'application/json'
